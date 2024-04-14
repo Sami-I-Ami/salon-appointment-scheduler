@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # psql variable to run statements
-PSQL="psql --username=freecodecamp --dbname=salon --tuples-only -c"
+PSQL="psql --username=freecodecamp --dbname=salon --tuples-only --no-align -c"
 
 # title
 echo -e "\n ~~~~~ Salon Scheduler ~~~~~"
@@ -44,6 +44,7 @@ MAIN_MENU() {
 
       # insert into database
       INSERT_NAME_RESULT=$($PSQL "INSERT INTO customers(phone, name) VALUES('$CUSTOMER_PHONE','$CUSTOMER_NAME')")
+      echo $INSERT_NAME_RESULT
     fi
 
     # format customer name and get customer id
@@ -57,6 +58,7 @@ MAIN_MENU() {
     # enter appointment into schedule
     INSERT_APPOINTMENT_RESULT=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
     echo -e "\nI have put you down for a $SERVICE_NAME_FORMATTED at $SERVICE_TIME, $CUSTOMER_NAME_FORMATTED."
+    echo $INSERT_APPOINTMENT_RESULT
   fi
 }
 
